@@ -19,7 +19,6 @@ import org.apache.commons.io.FilenameUtils;
 public class NeuronalTopologyImporter implements Serializable {
 	/// private members
 	private String selection = "";
-	private final NeuronalTopologyImporterProvider netip = new NeuronalTopologyImporterProvider();
 	private boolean correctExp2Syn;
 	private boolean correctAlphaSyn;
 	
@@ -63,7 +62,7 @@ public class NeuronalTopologyImporter implements Serializable {
 	File file
 	) {
 		if(file.exists() && !file.isDirectory()) {
-			I_NeuronalTopologyImporter importer = netip.getDefaultNeuronalTopologyImporter();
+			I_NeuronalTopologyImporter importer = new NeuronalTopologyImporterProvider().getDefaultNeuronalTopologyImporter();
 			importer.correct_alpha_synapses(this.correctAlphaSyn);
 			importer.correct_exp2_synapses(this.correctExp2Syn);
 			String extension = FilenameUtils.getExtension(file.toString());

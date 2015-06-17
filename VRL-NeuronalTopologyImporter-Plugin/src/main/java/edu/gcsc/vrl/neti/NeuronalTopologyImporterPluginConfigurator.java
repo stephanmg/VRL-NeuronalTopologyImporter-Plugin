@@ -33,7 +33,7 @@ public class NeuronalTopologyImporterPluginConfigurator extends VPluginConfigura
 
     public NeuronalTopologyImporterPluginConfigurator() {
         //specify the plugin name and version
-       setIdentifier(new PluginIdentifier("VRL-NeuronalTopologyImporter-Plugin", "0.0.1"));
+       setIdentifier(new PluginIdentifier("VRL-NeuronalTopologyImporter-Plugin", "0.0.2"));
 	
        // export some packages
        // exportPackage("com.your.package");
@@ -73,7 +73,7 @@ public class NeuronalTopologyImporterPluginConfigurator extends VPluginConfigura
        }
    }
     
-    @Override
+   	 @Override
 	/**
 	 * @brief install plugins
 	 * @param iApi

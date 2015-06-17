@@ -3,3 +3,4 @@
 .nb-gradle-properties
 build/*
 local_data/
+/VRL-NeuronalTopologyImporter-Plugin/.nb-gradle/private/
