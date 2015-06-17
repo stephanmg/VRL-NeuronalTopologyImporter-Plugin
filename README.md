@@ -1,8 +1,9 @@
 # VRL-NeuronalTopologyImporter-Plugin
 
-[![Build Status](https://travis-ci.org/stephanmg/VRL-NeuronalTopologyImporter-Plugin.png)](https://travis-ci.org/miho/VRL-NeuronalTopologyImporter-Plugin)
-
 This projects provides importing routines for NGX, HOC and SWC file types to UGX.
+See Template #1 after installation.
+
+[![Dependency Status](https://www.versioneye.com/user/projects/5581a17f386664002000024f/badge.svg?style=flat)](https://www.versioneye.com/user/projects/5581a17f386664002000024f)
 
 ## How To Build The Project
 
