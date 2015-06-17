@@ -5,6 +5,11 @@ See Template #1 after installation.
 
 [![Dependency Status](https://www.versioneye.com/user/projects/5581a17f386664002000024f/badge.svg?style=flat)](https://www.versioneye.com/user/projects/5581a17f386664002000024f)
 
+* [![Stories in Backlog](https://badge.waffle.io/stephanmg/vrl-neuronaltopologyimporter-plugin.png?label=backlog&title=Backlog)](http://waffle.io/stephanmg/vrl-neuronaltopologyimporter-plugin)
+[![Stories in Ready](https://badge.waffle.io/stephanmg/vrl-neuronaltopologyimporter-plugin.png?label=ready&title=Ready)](http://waffle.io/stephanmg/vrl-neuronaltopologyimporter-plugin)
+[![Stories in In Progress](https://badge.waffle.io/stephanmg/vrl-neuronaltopologyimporter-plugin.png?label=in progress&title=In Progress)](http://waffle.io/stephanmg/vrl-neuronaltopologyimporter-plugin)
+[![Stories in Done](https://badge.waffle.io/stephanmg/vrl-neuronaltopologyimporter-plugin.png?label=done&title=Done)](http://waffle.io/stephanmg/vrl-neuronaltopologyimporter-plugin)
+
 ## How To Build The Project
 
 ### 1. Dependencies
