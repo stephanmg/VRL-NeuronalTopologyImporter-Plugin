@@ -14,6 +14,7 @@ See Template #1 after installation.
 
 ## Coveralls
 * [![Coverage Status](https://coveralls.io/repos/stephanmg/VRL-NeuronalTopologyImporter-Plugin/badge.svg)](https://coveralls.io/r/stephanmg/VRL-NeuronalTopologyImporter-Plugin)
+
 ## How To Build The Project
 
 ### 1. Dependencies
