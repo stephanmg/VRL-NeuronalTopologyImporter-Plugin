@@ -26,7 +26,8 @@ public class NeuronalTopologyImporterTestsuite {
 	}
 
 	/**
-	 * @brief after classes are setu p
+	 * @brief after classes are setup
+	 * @throws Exception
 	 */
 	@AfterClass
 	public static void tearDownClass() throws Exception {

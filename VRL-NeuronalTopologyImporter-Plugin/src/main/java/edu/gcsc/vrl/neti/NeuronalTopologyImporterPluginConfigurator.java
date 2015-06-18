@@ -69,7 +69,7 @@ public class NeuronalTopologyImporterPluginConfigurator extends VPluginConfigura
        if (api instanceof VPluginAPI) {
            VPluginAPI vapi = (VPluginAPI) api;
            vapi.addComponent(NeuronalTopologyImporter.class);
-
+	   vapi.addComponentSearchFilter(new NeuronalTopologyImporterVFilter());
        }
    }
     

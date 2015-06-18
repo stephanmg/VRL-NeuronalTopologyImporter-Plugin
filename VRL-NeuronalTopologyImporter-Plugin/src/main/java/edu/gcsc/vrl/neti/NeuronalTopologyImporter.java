@@ -12,7 +12,7 @@ import java.io.Serializable;
 import org.apache.commons.io.FilenameUtils;
 
 /**
- *
+ * @brief NeuronalTopologyImporter component
  * @author stephanmg <stephan@syntaktischer-zucker.de>
  */
 @ComponentInfo(name="NeuronalTopologyImporter", category="/UG4/VRL-Plugins/Neuro/NeuronalTopologyImporter")
