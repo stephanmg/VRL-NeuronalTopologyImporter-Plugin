@@ -8,7 +8,9 @@ import java.io.File;
 import eu.mihosoft.vrl.annotation.MethodInfo;
 import edu.gcsc.vrl.ug.api.*;
 import eu.mihosoft.vrl.system.VMessage;
+import eu.mihosoft.vrl.system.VPluginConfigurator;
 import java.io.Serializable;
+import java.util.List;
 import org.apache.commons.io.FilenameUtils;
 
 /**
@@ -63,15 +65,19 @@ public class NeuronalTopologyImporter implements Serializable {
 	) {
 		if(file.exists() && !file.isDirectory()) {
 			I_NeuronalTopologyImporter importer = new NeuronalTopologyImporterProvider().getDefaultNeuronalTopologyImporter();
+		
 			importer.correct_alpha_synapses(this.correctAlphaSyn);
 			importer.correct_exp2_synapses(this.correctExp2Syn);
 			String extension = FilenameUtils.getExtension(file.toString());
+			System.err.println("extension");
 			if (selection.isEmpty()) {
+				System.err.println("ngx!");
 				if ("ngx".equalsIgnoreCase(extension)) {
 					importer.import_ngx(file.toString());
 				} else if ("hoc".equalsIgnoreCase(extension)) {
 					VMessage.warning("NeuronalTopologyImporter", "NEURON file type (.hoc) currently not supported.");
 				} else if ("swc".equalsIgnoreCase(extension)) {
+					System.err.println("swc!");
 					importer.import_geometry(file.toString(), extension.toLowerCase());
 				} 
 			} else {

@@ -30,13 +30,13 @@ import org.apache.commons.io.IOUtils;
 public class NeuronalTopologyImporterPluginConfigurator extends VPluginConfigurator {
 	/// private members
 	private File templateProjectSrc;
-
+	
     public NeuronalTopologyImporterPluginConfigurator() {
         //specify the plugin name and version
        setIdentifier(new PluginIdentifier("VRL-NeuronalTopologyImporter-Plugin", "0.0.2"));
 	
        // export some packages
-       // exportPackage("com.your.package");
+        exportPackage("edu.gcsc.vrl.neti");
 
        // describe the plugin
        setDescription("Transforms neuronal topologies in the HOC, SWC and NGX format to UGX format.");
@@ -68,7 +68,10 @@ public class NeuronalTopologyImporterPluginConfigurator extends VPluginConfigura
        // register plugin with canvas
        if (api instanceof VPluginAPI) {
            VPluginAPI vapi = (VPluginAPI) api;
+	   NeuronalTopologyImporterPathUtil.set_path_to_plugin(getInitAPI().getResourceFolder());
+
            vapi.addComponent(NeuronalTopologyImporter.class);
+	   vapi.addComponent(NeuronalTopologyImporterPathUtil.class);
 	   vapi.addComponentSearchFilter(new NeuronalTopologyImporterVFilter());
        }
    }
@@ -95,8 +98,29 @@ public class NeuronalTopologyImporterPluginConfigurator extends VPluginConfigura
 			VJarUtil.getClassLocation(NeuronalTopologyImporterPluginConfigurator.class));
 
 	    initTemplateProject(iApi);
+	    initTemplateData(iApi);
    }
     
+    /**
+     * @brief init template data
+     * @param iAPI 
+     */
+    private void initTemplateData(InitPluginAPI iAPI) {
+	   final File templateData = new File(iAPI.getResourceFolder(), "template.ngx");
+	   if (!templateData.exists()) {
+		try {
+			InputStream in = NeuronalTopologyImporterPluginConfigurator.class.getResourceAsStream(
+			"/edu/gcsc/vrl/neti/template.ngx");
+			IOUtil.saveStreamToFile(in, templateData);
+		} catch (FileNotFoundException ex) {
+			Logger.getLogger(VRLPlugin.class.getName()).
+				log(Level.SEVERE, null, ex);
+		} catch (IOException ex) {
+			Logger.getLogger(VRLPlugin.class.getName()).
+				log(Level.SEVERE, null, ex);
+		}
+	   }
+    }
     	/**
 	 * @brief inits the template projects
 	 * @param iApi
@@ -138,9 +162,9 @@ public class NeuronalTopologyImporterPluginConfigurator extends VPluginConfigura
 	 * @brief saves the project templates
 	 */
 	private void saveProjectTemplate() {
-		InputStream in = NeuronalTopologyImporterPluginConfigurator.class.getResourceAsStream(
-			"/edu/gcsc/vrl/neti/neti_template.vrlp");
 		try {
+			InputStream in = NeuronalTopologyImporterPluginConfigurator.class.getResourceAsStream(
+			"/edu/gcsc/vrl/neti/neti_template.vrlp");
 			IOUtil.saveStreamToFile(in, templateProjectSrc);
 		} catch (FileNotFoundException ex) {
 			Logger.getLogger(VRLPlugin.class.getName()).
