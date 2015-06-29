@@ -2,15 +2,14 @@
 package edu.gcsc.vrl.neti;
 
 /// imports
+import edu.gcsc.vrl.ug.api.I_NeuronalTopologyImporter;
+import edu.gcsc.vrl.ug.api.NeuronalTopologyImporterProvider;
 import eu.mihosoft.vrl.annotation.ComponentInfo;
 import eu.mihosoft.vrl.annotation.ParamInfo;
 import java.io.File;
 import eu.mihosoft.vrl.annotation.MethodInfo;
-import edu.gcsc.vrl.ug.api.*;
 import eu.mihosoft.vrl.system.VMessage;
-import eu.mihosoft.vrl.system.VPluginConfigurator;
 import java.io.Serializable;
-import java.util.List;
 import org.apache.commons.io.FilenameUtils;
 
 /**

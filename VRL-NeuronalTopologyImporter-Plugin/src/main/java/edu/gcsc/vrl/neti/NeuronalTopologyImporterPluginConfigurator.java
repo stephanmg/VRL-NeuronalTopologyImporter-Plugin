@@ -30,6 +30,11 @@ import org.apache.commons.io.IOUtils;
 public class NeuronalTopologyImporterPluginConfigurator extends VPluginConfigurator {
 	/// private members
 	private File templateProjectSrc;
+	private File templateProjectSrc2;
+	
+	private final String templateProjectName = "neti_template.vrlp";
+	private final String templateProjectName2 = "neti_template_resource.vrlp";
+	private final String templateDataName = "template.ngx";
 	
     public NeuronalTopologyImporterPluginConfigurator() {
         //specify the plugin name and version
@@ -68,10 +73,10 @@ public class NeuronalTopologyImporterPluginConfigurator extends VPluginConfigura
        // register plugin with canvas
        if (api instanceof VPluginAPI) {
            VPluginAPI vapi = (VPluginAPI) api;
-	   NeuronalTopologyImporterPathUtil.set_path_to_plugin(getInitAPI().getResourceFolder());
+	   NeuronalTopologyImporterPathProvider.set_path_to_plugin(getInitAPI().getResourceFolder());
 
            vapi.addComponent(NeuronalTopologyImporter.class);
-	   vapi.addComponent(NeuronalTopologyImporterPathUtil.class);
+	   vapi.addComponent(NeuronalTopologyImporterPathProvider.class);
 	   vapi.addComponentSearchFilter(new NeuronalTopologyImporterVFilter());
        }
    }
@@ -84,6 +89,7 @@ public class NeuronalTopologyImporterPluginConfigurator extends VPluginConfigura
 	public void install(InitPluginAPI iApi) {
 		// ensure template projects are updated
 		new File(iApi.getResourceFolder(), "neti_template.vrlp").delete();
+		new File(iApi.getResourceFolder(), "neti_template_resource.vrlp").delete();
 	}
 
 
@@ -98,7 +104,9 @@ public class NeuronalTopologyImporterPluginConfigurator extends VPluginConfigura
 			VJarUtil.getClassLocation(NeuronalTopologyImporterPluginConfigurator.class));
 
 	    initTemplateProject(iApi);
+	    initTemplateProject2(iApi);
 	    initTemplateData(iApi);
+	    
    }
     
     /**
@@ -106,11 +114,11 @@ public class NeuronalTopologyImporterPluginConfigurator extends VPluginConfigura
      * @param iAPI 
      */
     private void initTemplateData(InitPluginAPI iAPI) {
-	   final File templateData = new File(iAPI.getResourceFolder(), "template.ngx");
+	   final File templateData = new File(iAPI.getResourceFolder(), templateDataName); 
 	   if (!templateData.exists()) {
 		try {
 			InputStream in = NeuronalTopologyImporterPluginConfigurator.class.getResourceAsStream(
-			"/edu/gcsc/vrl/neti/template.ngx");
+				File.separator + getClass().getPackage().getName().replace(".", File.separator) + File.separator + templateDataName);
 			IOUtil.saveStreamToFile(in, templateData);
 		} catch (FileNotFoundException ex) {
 			Logger.getLogger(VRLPlugin.class.getName()).
@@ -126,7 +134,8 @@ public class NeuronalTopologyImporterPluginConfigurator extends VPluginConfigura
 	 * @param iApi
 	 */
 	private void initTemplateProject(InitPluginAPI iApi) {
-		templateProjectSrc = new File(iApi.getResourceFolder(), "neti_template.vrlp");
+		System.err.println(getClass().getPackage());
+		templateProjectSrc = new File(iApi.getResourceFolder(), templateProjectName);
 
 		if (!templateProjectSrc.exists()) {
 			saveProjectTemplate();
@@ -136,7 +145,7 @@ public class NeuronalTopologyImporterPluginConfigurator extends VPluginConfigura
 
 			@Override
 			public String getName() {
-				return "NeuronalTopologyImporter - Template #1";
+				return "NeuronalTopologyImporter - Template #1 (Default)";
 			}
 
 			@Override
@@ -164,7 +173,7 @@ public class NeuronalTopologyImporterPluginConfigurator extends VPluginConfigura
 	private void saveProjectTemplate() {
 		try {
 			InputStream in = NeuronalTopologyImporterPluginConfigurator.class.getResourceAsStream(
-			"/edu/gcsc/vrl/neti/neti_template.vrlp");
+			File.separator + getClass().getPackage().getName().replace(".", File.separator) + File.separator + templateProjectName);
 			IOUtil.saveStreamToFile(in, templateProjectSrc);
 		} catch (FileNotFoundException ex) {
 			Logger.getLogger(VRLPlugin.class.getName()).
@@ -174,4 +183,60 @@ public class NeuronalTopologyImporterPluginConfigurator extends VPluginConfigura
 				log(Level.SEVERE, null, ex);
 		}
 	}
+	
+
+    	/**
+	 * @brief inits the template projects
+	 * @param iApi
+	 */
+	private void initTemplateProject2(InitPluginAPI iApi) {
+		templateProjectSrc2 = new File(iApi.getResourceFolder(), templateProjectName2);
+
+		if (!templateProjectSrc2.exists()) {
+			saveProjectTemplate2();
+		}
+
+		iApi.addProjectTemplate(new ProjectTemplate() {
+
+			@Override
+			public String getName() {
+				return "NeuronalTopologyImporter - Template #2 (Resource)";
+			}
+
+			@Override
+			public File getSource() {
+				return templateProjectSrc2;
+			}
+
+			@Override
+			public String getDescription() {
+				return "NeuronalTopologyImporter template for "
+					+ "converting neuronal topologies from HOC, "
+					+ "SWC and NGX to UGX resource example";
+			}
+
+			@Override
+			public BufferedImage getIcon() {
+				return null;
+			}
+		});
+	}
+
+	/**
+	 * @brief saves the project templates
+	 */
+	private void saveProjectTemplate2() {
+		try {
+			InputStream in = NeuronalTopologyImporterPluginConfigurator.class.getResourceAsStream(
+			File.separator + getClass().getPackage().getName().replace(".", File.separator) + File.separator + templateProjectName2);
+			IOUtil.saveStreamToFile(in, templateProjectSrc2);
+		} catch (FileNotFoundException ex) {
+			Logger.getLogger(VRLPlugin.class.getName()).
+				log(Level.SEVERE, null, ex);
+		} catch (IOException ex) {
+			Logger.getLogger(VRLPlugin.class.getName()).
+				log(Level.SEVERE, null, ex);
+		}
+	}
+	
  }

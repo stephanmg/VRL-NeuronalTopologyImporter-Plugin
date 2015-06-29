@@ -14,7 +14,7 @@ import org.junit.runners.Suite;
  * @author stephanmg <stephan@syntaktischer-zucker.de>
  */
 @RunWith(Suite.class)
-@Suite.SuiteClasses({})
+@Suite.SuiteClasses({NETITest.class, NETIIntegration.class})
 public class NeuronalTopologyImporterTestsuite {
 
 	/**

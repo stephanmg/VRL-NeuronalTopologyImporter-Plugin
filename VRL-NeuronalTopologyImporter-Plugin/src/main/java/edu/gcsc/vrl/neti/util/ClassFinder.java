@@ -1,10 +1,5 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 /// package's name
-package edu.gcsc.vrl.neti;
+package edu.gcsc.vrl.neti.util;
 
 /// imports
 import java.io.File;
@@ -21,16 +16,22 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
 /**
- *
+ * @brief finds all classes within a jar or folder
  * @author stephanmg <stephan@syntaktischer-zucker.de>
  */
 public class ClassFinder {
-
-	private static Class<?>[] getClasses(String packageName)
+	/**
+	 * @brief finds all classes within a given package directory
+	 * @param packageName
+	 * @return
+	 * @throws ClassNotFoundException
+	 * @throws IOException 
+	 */
+	private static Class<?>[] getClassesFromPackageDirectory(String packageName)
 		throws ClassNotFoundException, IOException {
 		ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
 		assert classLoader != null;
-		String path = packageName.replace('.', '/');
+		String path = packageName.replace('.', File.separator.charAt(0));
 		Enumeration<URL> resources = classLoader.getResources(path);
 		List<File> dirs = new ArrayList<File>();
 		while (resources.hasMoreElements()) {
@@ -46,10 +47,10 @@ public class ClassFinder {
 	}
 
 	/**
-	 * Recursive method used to find all classes in a given directory and
+	 * @brief ecursive method used to find all classes in a given directory and
 	 * subdirs.
 	 *	 
-* @param directory The base directory
+	 * @param directory The base directory
 	 * @param packageName The package name for classes found inside the base
 	 * directory
 	 * @return The classes
@@ -73,14 +74,85 @@ public class ClassFinder {
 		return classes;
 	}
 
+
+	/**
+	 * @brief finds all classes within given jars in a folder
+	 * @param folder
+	 * @return 
+	 */
+	public static ArrayList<Class<?>> getClassesFromJar(File folder) {
+		FilenameFilter jarFilter = new FilenameFilter() {
+			@Override
+			public boolean accept(File dir, String name) {
+				return name.toLowerCase().endsWith(".jar");
+			}
+		};
+
+		ArrayList<Class<?>> clazzes = new ArrayList<Class<?>>();
+		File[] files = folder.listFiles(jarFilter);
+		for (File file : files) {
+			if (!file.isDirectory()) {
+				System.out.print("     file:");
+				
+				URL jar = null;
+				try {
+					jar = file.toURI().toURL();
+				} catch (MalformedURLException ex) {
+					Logger.getLogger(ClassFinder.class.getName()).log(Level.SEVERE, null, ex);
+				}
+				ZipInputStream zip = null;
+				try {
+					zip = new ZipInputStream(jar.openStream());
+				} catch (IOException ex) {
+					Logger.getLogger(ClassFinder.class.getName()).log(Level.SEVERE, null, ex);
+				}
+				ZipEntry ze = null;
+
+				List<String> list = new ArrayList<String>();
+				try {
+					while ((ze = zip.getNextEntry()) != null) {
+						String entryName = ze.getName();
+						if (entryName.contains("neti") && entryName.endsWith(".class")) {
+							list.add(entryName);
+							System.err.println("entry: " + entryName.replace(File.separator, "."));
+							try {
+								System.err.println("to load: "+ entryName.substring(0, entryName.length()-6));
+								clazzes.add(Class.forName(entryName.substring(0, entryName.length()-6).replace(File.separator, ".")));
+							/// may be thrown if class not loaded by class loader
+							} catch (ClassNotFoundException ex) {
+								Logger.getLogger(ClassFinder.class.getName()).log(Level.SEVERE, null, ex);
+							/// may be thrown if we have interface method
+							} catch (ClassCastException cce) {
+								Logger.getLogger(ClassFinder.class.getName()).log(Level.SEVERE, null, cce);
+							}
+						}
+					}
+				} catch (IOException ex) {
+					Logger.getLogger(ClassFinder.class.getName()).log(Level.SEVERE, null, ex);
+				}
+
+			}
+		}
+		return clazzes;
+	}
+
+	
+	/**
+	 * @brief ctor
+	 */
 	public ClassFinder() {
 
 	}
 
+	/**
+	 * @brief helper
+	 * @param pack
+	 * @return
+	 */
 	public Class<?>[] findAllClasses(String pack) {
 		Class<?>[] clazzes = null;
 		try {
-			clazzes = getClasses(pack);
+			clazzes = getClassesFromPackageDirectory(pack);
 		} catch (ClassNotFoundException cnfe) {
 
 		} catch (IOException ioe) {
@@ -89,6 +161,9 @@ public class ClassFinder {
 		return clazzes;
 	}
 
+	/**
+	 * @brief some tests with output
+	 */
 	public void test() {
 		System.err.println("Package name: " + getClass().getPackage().getName());
 		for (Class<?> clazz : findAllClasses(getClass().getPackage().getName())) {
@@ -96,6 +171,9 @@ public class ClassFinder {
 		}
 	}
 
+	/**
+	 * @brief finds all classes in the given jar file
+	 */
 	@SuppressWarnings("NestedAssignment")
 	public void findAll() {
 		File f = new File("/Users/stephan/Temp/console_apps/test27/.application/property-folder/plugins");
@@ -132,10 +210,10 @@ public class ClassFinder {
 						String entryName = ze.getName();
 						if (entryName.contains("neti") && entryName.endsWith(".class")) {
 							list.add(entryName);
-							System.err.println("entry: " + entryName.replace("/", "."));
+							System.err.println("entry: " + entryName.replace(File.separator, "."));
 							try {
 								System.err.println("to load: "+ entryName.substring(0, entryName.length()-6));
-								Class.forName(entryName.substring(0, entryName.length()-6).replace("/", "."));
+								Class.forName(entryName.substring(0, entryName.length()-6).replace(File.separator, "."));
 							} catch (ClassNotFoundException ex) {
 								Logger.getLogger(ClassFinder.class.getName()).log(Level.SEVERE, null, ex);
 								System.err.println("error!");
@@ -151,8 +229,16 @@ public class ClassFinder {
 
 	}
 
+	/**
+	 * @brief main (some tests)
+	 * @param args 
+	 */
 	public static void main(String... args) {
 		new ClassFinder().test();
 		new ClassFinder().findAll();
+		
+		/*System.err.println("test with jar!");
+		ClassFinder.getClassesFromJar(new File("/Users/stephan/Temp/console_apps/test27/.application/property-folder/plugins"));
+			*/
 	}
 }
