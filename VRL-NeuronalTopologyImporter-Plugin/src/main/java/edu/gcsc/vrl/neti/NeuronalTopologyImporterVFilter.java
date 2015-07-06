@@ -2,6 +2,7 @@
 package edu.gcsc.vrl.neti;
 
 /// imports
+import edu.gcsc.vrl.ug.UGObjectUtil;
 import eu.mihosoft.vrl.visual.VFilter;
 import javax.swing.tree.DefaultMutableTreeNode;
 
@@ -46,6 +47,7 @@ public class NeuronalTopologyImporterVFilter implements VFilter {
 		boolean groupRoot = UGObjectUtil.isGroupRoot(cls);
 		boolean groupChild = UGObjectUtil.isGroupChild(cls);
 		w*/
+
 
 		return "NeuronalTopologyImporterProvider".equals(cls.getName());
 	}
