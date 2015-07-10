@@ -58,8 +58,8 @@ public class NeuronalTopologyImporter implements Serializable {
 	public void import_geometry(
 	@ParamInfo(name  = "Input file", typeName = "Location of the input file", 
 		   style = "load-dialog", options = "endings=[\"ngx\", "
-			   + "\"hoc\", \"swc\"]; description=\"NGX (NeuGen XML),"
-			   + "HOC (NEURON) or SWC (NeuroMorpho) files\"")
+			   + "\"hoc\", \"swc\", \"txt\"]; description=\"NGX (NeuGen XML),"
+			   + "HOC (NEURON), SWC (NeuroMorpho) or TXT (NeuGen TXT) files\"")
 	File file
 	) {
 		if(file.exists() && !file.isDirectory()) {
@@ -78,7 +78,11 @@ public class NeuronalTopologyImporter implements Serializable {
 				} else if ("swc".equalsIgnoreCase(extension)) {
 					System.err.println("swc!");
 					importer.import_geometry(file.toString(), extension.toLowerCase());
-				} 
+				} else if ("txt".equalsIgnoreCase(extension)) {
+					System.err.println("txt!");
+					VMessage.warning("NeuronalTopologyImporter", "NeuGen TXT file type (.txt) currently not supported.");
+					/// importer.import_txt(file.toString(), selection.toLowerCase());
+				}
 			} else {
 				if ("ngx".equalsIgnoreCase(selection)) {
 					importer.import_ngx(file.toString());
@@ -86,7 +90,11 @@ public class NeuronalTopologyImporter implements Serializable {
 					VMessage.warning("NeuronalTopologyImporter", "NEURON file type (.hoc) currently not supported.");
 				} else if ("swc".equalsIgnoreCase(selection)) {
 					importer.import_geometry(file.toString(), selection.toLowerCase());
-				} 
+				}  else if ("txt".equalsIgnoreCase(selection)) {
+					System.err.println("txt!");
+					VMessage.warning("NeuronalTopologyImporter", "NeuGen TXT file type (.txt) currently not supported.");
+					importer.import_txt(file.toString(), selection.toLowerCase());
+				}
 			}
 		} else {
 			VMessage.warning("NeuronalTopologyImporter", "Input file not found.");
