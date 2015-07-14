@@ -59,3 +59,6 @@ task to build and install the plugin.
     gradlew installVRLPlugin
 
 Finally, restart VRL-Studio
+
+#### Note
+For a NeuroBox release, use the given branch.
