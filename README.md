@@ -9,8 +9,6 @@ See Template #1 after installation.
 ## WaffleIO
 * [![Stories in Backlog](https://badge.waffle.io/stephanmg/vrl-neuronaltopologyimporter-plugin.png?label=backlog&title=Backlog)](http://waffle.io/stephanmg/vrl-neuronaltopologyimporter-plugin)
 [![Stories in Ready](https://badge.waffle.io/stephanmg/vrl-neuronaltopologyimporter-plugin.png?label=ready&title=Ready)](http://waffle.io/stephanmg/vrl-neuronaltopologyimporter-plugin)
-[![Stories in In Progress](https://badge.waffle.io/stephanmg/vrl-neuronaltopologyimporter-plugin.png?label=in progress&title=In Progress)](http://waffle.io/stephanmg/vrl-neuronaltopologyimporter-plugin)
-[![Stories in Done](https://badge.waffle.io/stephanmg/vrl-neuronaltopologyimporter-plugin.png?label=done&title=Done)](http://waffle.io/stephanmg/vrl-neuronaltopologyimporter-plugin)
 
 ## Coveralls
 * [![Coverage Status](https://coveralls.io/repos/stephanmg/VRL-NeuronalTopologyImporter-Plugin/badge.svg)](https://coveralls.io/r/stephanmg/VRL-NeuronalTopologyImporter-Plugin)
