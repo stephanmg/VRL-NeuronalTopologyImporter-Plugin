@@ -133,7 +133,8 @@ public abstract class PathProvider implements IPathProvider {
 	}
 	
 	/**
-	 * @brief set's a resource file (todo: implement)
+	 * @brief set's a resource file 
+	 * @todo implement
 	 * @param rsc
 	 * @return
 	 */

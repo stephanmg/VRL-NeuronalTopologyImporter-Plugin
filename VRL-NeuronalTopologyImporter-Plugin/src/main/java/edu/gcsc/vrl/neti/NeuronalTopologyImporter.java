@@ -13,7 +13,7 @@ import java.io.Serializable;
 import org.apache.commons.io.FilenameUtils;
 
 /**
- * @brief NeuronalTopologyImporter component
+ * @brief NeuronalTopologyImporter component for VRL-Studio
  * @author stephanmg <stephan@syntaktischer-zucker.de>
  */
 @ComponentInfo(name="NeuronalTopologyImporter", category="/UG4/VRL-Plugins/Neuro/NeuronalTopologyImporter")
@@ -22,12 +22,15 @@ public class NeuronalTopologyImporter implements Serializable {
 	private String selection = "";
 	private boolean correctExp2Syn;
 	private boolean correctAlphaSyn;
+	private I_NeuronalTopologyImporter importer;
 	
 	/// private static members
 	private static final long serialVersionUID = 1L;
 	
 	/**
-	 * @brief setup the importer
+	 * @brief optionally prepare the importer (to be deprecated)
+	 * Preselect a file type and enable synapse corrections
+	 * 
 	 * @param selection 
 	 * @param correctExp2Syn
 	 * @param correctAlphaSyn
@@ -51,7 +54,8 @@ public class NeuronalTopologyImporter implements Serializable {
 	}
 	
 	/**
-	 * @brief import the geometry
+	 * @brief import the geometry (either .hoc or .swc. or .txt. or .ngx)
+	 * File is a path on local filesystem which is schedule for import
 	 * @param file 
 	 */
 	@MethodInfo(name="Import Geometry", hide=false)
@@ -63,7 +67,7 @@ public class NeuronalTopologyImporter implements Serializable {
 	File file
 	) {
 		if(file.exists() && !file.isDirectory()) {
-			I_NeuronalTopologyImporter importer = new NeuronalTopologyImporterProvider().getDefaultNeuronalTopologyImporter();
+			importer = new NeuronalTopologyImporterProvider().getDefaultNeuronalTopologyImporter();
 		
 			importer.correct_alpha_synapses(this.correctAlphaSyn);
 			importer.correct_exp2_synapses(this.correctExp2Syn);
@@ -99,5 +103,17 @@ public class NeuronalTopologyImporter implements Serializable {
 		} else {
 			VMessage.warning("NeuronalTopologyImporter", "Input file not found.");
 		}
+	}
+	
+	/**
+	 * @brief generated and writes the ug4 compatible computational grid
+	 * Note that the grid is stored in the same place where the input
+	 * geometry is stored and written with the same basename but with
+	 * the ug4 extension for grids .ugx
+	 * 
+	 */
+	@MethodInfo(name="Import Geometry", hide=false)
+	public void generate_grid() {
+		importer.generate_grid();
 	}
 }

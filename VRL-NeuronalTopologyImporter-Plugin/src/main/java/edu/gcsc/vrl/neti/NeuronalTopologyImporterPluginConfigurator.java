@@ -73,7 +73,7 @@ public class NeuronalTopologyImporterPluginConfigurator extends VPluginConfigura
        // register plugin with canvas
        if (api instanceof VPluginAPI) {
            VPluginAPI vapi = (VPluginAPI) api;
-	   NeuronalTopologyImporterPathProvider.set_path_to_plugin(getInitAPI().getResourceFolder());
+	   /// NeuronalTopologyImporterPathProvider.set_path_to_plugin(getInitAPI().getResourceFolder());
 
            vapi.addComponent(NeuronalTopologyImporter.class);
 	   vapi.addComponent(NeuronalTopologyImporterPathProvider.class);
@@ -102,6 +102,8 @@ public class NeuronalTopologyImporterPluginConfigurator extends VPluginConfigura
     public void init(InitPluginAPI iApi) {
 	    CompletionUtil.registerClassesFromJar(
 			VJarUtil.getClassLocation(NeuronalTopologyImporterPluginConfigurator.class));
+	    
+	    NeuronalTopologyImporterPathProvider.set_path_to_plugin(getInitAPI().getResourceFolder());
 
 	    initTemplateProject(iApi);
 	    initTemplateProject2(iApi);

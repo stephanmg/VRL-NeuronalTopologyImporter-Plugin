@@ -5,7 +5,6 @@ package edu.gcsc.vrl.neti.test;
 import edu.gcsc.vrl.ug.api.AlgebraType;
 import edu.gcsc.vrl.ug.api.F_InitUG;
 import edu.gcsc.vrl.ug.api.I_NeuronalTopologyImporter;
-import edu.gcsc.vrl.ug.api.NeuronalTopologyImporter;
 import edu.gcsc.vrl.ug.api.NeuronalTopologyImporterProvider;
 import eu.mihosoft.vrl.system.VRL;
 import org.junit.After;

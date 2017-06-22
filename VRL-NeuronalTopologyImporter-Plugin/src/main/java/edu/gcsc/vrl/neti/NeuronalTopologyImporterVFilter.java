@@ -2,7 +2,6 @@
 package edu.gcsc.vrl.neti;
 
 /// imports
-import edu.gcsc.vrl.ug.UGObjectUtil;
 import eu.mihosoft.vrl.visual.VFilter;
 import javax.swing.tree.DefaultMutableTreeNode;
 
