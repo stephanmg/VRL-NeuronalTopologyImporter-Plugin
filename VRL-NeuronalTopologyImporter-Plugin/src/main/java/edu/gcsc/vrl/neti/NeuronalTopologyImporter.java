@@ -56,6 +56,7 @@ public class NeuronalTopologyImporter implements Serializable {
 	/**
 	 * @brief import the geometry (either .hoc or .swc. or .txt. or .ngx)
 	 * File is a path on local filesystem which is schedule for import
+	 * Note: hoc and txt currently not supported here
 	 * @param file 
 	 */
 	@MethodInfo(name="Import Geometry", hide=false)
@@ -72,20 +73,15 @@ public class NeuronalTopologyImporter implements Serializable {
 			importer.correct_alpha_synapses(this.correctAlphaSyn);
 			importer.correct_exp2_synapses(this.correctExp2Syn);
 			String extension = FilenameUtils.getExtension(file.toString());
-			System.err.println("extension");
 			if (selection.isEmpty()) {
-				System.err.println("ngx!");
 				if ("ngx".equalsIgnoreCase(extension)) {
 					importer.import_ngx(file.toString());
 				} else if ("hoc".equalsIgnoreCase(extension)) {
 					VMessage.warning("NeuronalTopologyImporter", "NEURON file type (.hoc) currently not supported.");
 				} else if ("swc".equalsIgnoreCase(extension)) {
-					System.err.println("swc!");
 					importer.import_geometry(file.toString(), extension.toLowerCase());
 				} else if ("txt".equalsIgnoreCase(extension)) {
-					System.err.println("txt!");
 					VMessage.warning("NeuronalTopologyImporter", "NeuGen TXT file type (.txt) currently not supported.");
-					/// importer.import_txt(file.toString(), selection.toLowerCase());
 				}
 			} else {
 				if ("ngx".equalsIgnoreCase(selection)) {
@@ -95,9 +91,7 @@ public class NeuronalTopologyImporter implements Serializable {
 				} else if ("swc".equalsIgnoreCase(selection)) {
 					importer.import_geometry(file.toString(), selection.toLowerCase());
 				}  else if ("txt".equalsIgnoreCase(selection)) {
-					System.err.println("txt!");
 					VMessage.warning("NeuronalTopologyImporter", "NeuGen TXT file type (.txt) currently not supported.");
-					importer.import_txt(file.toString(), selection.toLowerCase());
 				}
 			}
 		} else {
@@ -106,7 +100,7 @@ public class NeuronalTopologyImporter implements Serializable {
 	}
 	
 	/**
-	 * @brief generated and writes the ug4 compatible computational grid
+	 * @brief generates and writes the ug4 compatible computational grid
 	 * Note that the grid is stored in the same place where the input
 	 * geometry is stored and written with the same basename but with
 	 * the ug4 extension for grids .ugx

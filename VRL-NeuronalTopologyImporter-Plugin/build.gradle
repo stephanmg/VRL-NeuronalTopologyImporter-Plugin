@@ -43,8 +43,8 @@ dependencies {
     compile (group: 'eu.mihosoft.vrl', name: 'vrl', version: '0.4.2.8.5-SNAPSHOT')
     compile (group: 'eu.mihosoft.vrl', name: 'vrl', version: '0.4.2.8.5-SNAPSHOT', classifier: 'sources')
     compile (group: 'eu.mihosoft.vrl', name: 'vrl', version: '0.4.2.8.5-SNAPSHOT', classifier: 'javadoc')
-    compile group: 'commons-io', name: 'commons-io', version: '2.5'
-    compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.6'
+    compile group: 'commons-io', name: 'commons-io', version: '2.4'
+    compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.4'
 
 }
 
