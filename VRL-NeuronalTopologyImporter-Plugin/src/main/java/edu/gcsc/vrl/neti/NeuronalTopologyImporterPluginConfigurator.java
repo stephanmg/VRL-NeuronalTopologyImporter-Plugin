@@ -38,13 +38,13 @@ public class NeuronalTopologyImporterPluginConfigurator extends VPluginConfigura
 	
     public NeuronalTopologyImporterPluginConfigurator() {
         //specify the plugin name and version
-       setIdentifier(new PluginIdentifier("VRL-NeuronalTopologyImporter-Plugin", "0.0.2"));
+       setIdentifier(new PluginIdentifier("VRL-NeuronalTopologyImporter-Plugin", "0.1.0"));
 	
        // export some packages
         exportPackage("edu.gcsc.vrl.neti");
 
        // describe the plugin
-       setDescription("Transforms neuronal topologies in the HOC, SWC and NGX format to UGX format.");
+       setDescription("Converts neuronal morphologies in the HOC, SWC and NGX format to UGX format.");
 
        // get the license text
        String license_str = "";
@@ -59,7 +59,7 @@ public class NeuronalTopologyImporterPluginConfigurator extends VPluginConfigura
        // copyright info
        setCopyrightInfo("VRL-NeuronalTopologyImporter-Plugin",
                "(c) stephanmg",
-               "www.syntaktischer-zucker.de", "LGPLv3", license_str);
+               "www.neurobox.eu", "LGPLv3", license_str);
       
        // specify dependencies
        addDependency(new PluginDependency("VRL", "0.4.2", "0.4.2"));
