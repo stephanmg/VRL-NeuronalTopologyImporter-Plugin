@@ -2,18 +2,18 @@
 package edu.gcsc.vrl.neti;
 
 /// imports
+import java.io.Serializable;
+import java.io.File;
+import org.apache.commons.io.FilenameUtils;
 import edu.gcsc.vrl.ug.api.I_NeuronalTopologyImporter;
 import edu.gcsc.vrl.ug.api.NeuronalTopologyImporterProvider;
 import eu.mihosoft.vrl.annotation.ComponentInfo;
 import eu.mihosoft.vrl.annotation.ParamInfo;
-import java.io.File;
 import eu.mihosoft.vrl.annotation.MethodInfo;
 import eu.mihosoft.vrl.system.VMessage;
-import java.io.Serializable;
-import org.apache.commons.io.FilenameUtils;
 
 /**
- * @brief NeuronalTopologyImporter component 
+ * @brief NeuronalTopologyImporter main component 
  * @author stephanmg <stephan@syntaktischer-zucker.de>
  */
 @ComponentInfo(name = "NeuronalTopologyImporter", category = "/UG4/VRL-Plugins/Neuro/NeuronalTopologyImporter")
@@ -28,18 +28,18 @@ public class NeuronalTopologyImporter implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * @brief optionally prepare the importer (to be deprecated) Preselect a
-	 * file type and enable synapse corrections
+	 * @brief optionally prepare the importer 
+	 * Pre-select a file type and enable synapse correction mechanisms
 	 *
 	 * @param selection
 	 * @param correctExp2Syn
 	 * @param correctAlphaSyn
 	 */
-	@MethodInfo(name = "Advanced options", hide = true)
+	@MethodInfo(name = "Advanced Options", hide = true)
 	@Deprecated
 	public void advanced_options(
 		@ParamInfo(name = "File type", typeName = "Filetype",
-			style = "selection", options = "value=[\"NGX\", \"HOC\", \"SWC\"]") String selection,
+			style = "selection", options = "value=[\"ngx\", \"hoc\", \"swc\"]") String selection,
 		@ParamInfo(name = "Correct Exp2Syn", typeName = "Corrects the Exp2Syns") boolean correctExp2Syn,
 		@ParamInfo(name = "Correct AlphaSyn", typeName = "Corrects the AlphaSyns") boolean correctAlphaSyn
 	) {
@@ -49,9 +49,9 @@ public class NeuronalTopologyImporter implements Serializable {
 	}
 
 	/**
-	 * @brief import the geometry (either .hoc or .swc. or .txt. or .ngx)
-	 * File is a path on local filesystem which is schedule for import Note:
-	 * hoc and txt currently not supported here
+	 * @brief import the geometry 
+	 * File is a path on local filesystem which is schedule for import
+	 * Note that hoc and txt are currently not supported 
 	 * @param file
 	 */
 	@Deprecated
@@ -98,8 +98,8 @@ public class NeuronalTopologyImporter implements Serializable {
 	 * @brief generates and writes the ug4 compatible computational grid
 	 * Note that the grid is stored in the same place where the input
 	 * geometry is stored and written with the same basename but with the
-	 * ug4 extension for grids .ugx
-	 * @param file to be converted
+	 * ug4 extension for grids which reads .ugx
+	 * @param file input geometry file which should be converted
 	 *
 	 */
 	@MethodInfo(name = "Convert File", hide = false)
@@ -116,6 +116,7 @@ public class NeuronalTopologyImporter implements Serializable {
 					"NEURON file type (.hoc) currently not supported.");
 			} else {
 				importer = new NeuronalTopologyImporterProvider().getDefaultNeuronalTopologyImporter();
+				/// Note: This determines the file extension automatically
 				importer.import_geometry(file.toString(), "");
 				importer.generate_grid();
 			}

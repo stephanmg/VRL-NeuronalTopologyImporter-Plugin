@@ -2,15 +2,15 @@
 package edu.gcsc.vrl.neti;
 
 /// imports
+import java.io.File;
+import java.io.Serializable;
 import edu.gcsc.vrl.neti.util.PathProvider;
 import eu.mihosoft.vrl.annotation.ComponentInfo;
 import eu.mihosoft.vrl.annotation.MethodInfo;
 import eu.mihosoft.vrl.annotation.ParamInfo;
-import java.io.File;
-import java.io.Serializable;
 
 /**
- * @brief NeuronalTopologyImporter Path Provider
+ * @brief NeuronalTopologyImporter path provider component
  * @author stephanmg <stephan@syntaktischer-zucker.de>
  */
 @ComponentInfo(name = "NeuronalTopologyImporterPathProvider", category = "/UG4/VRL-Plugins/Neuro/NeuronalTopologyImporter")
@@ -19,18 +19,20 @@ public class NeuronalTopologyImporterPathProvider extends PathProvider implement
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * @brief override plugin name and resource folder (not necessary)
-	 * @see PathProvider
+	 * @brief override plugin name and resource folder 
+	 * Note: This is not required but convenient 
 	 */
+	@SuppressWarnings("static-access")
 	public NeuronalTopologyImporterPathProvider() {
 		super.PLUGIN_NAME = "NeuronalTopologyImporter";
 		super.RESOURCE_FOLDER = "resources";
 	}
 	
 	/**
-	 * @brief override and calls super class impl
-	 * @param fName
-	 * @return 
+	 * @brief get a resource file
+	 * @param fName file name for the resource
+	 * @return the file for the resources
+	 * @see File
 	 */
 	@MethodInfo(name = "get resource file", valueName = "file")
 	@Override
@@ -42,8 +44,9 @@ public class NeuronalTopologyImporterPathProvider extends PathProvider implement
 
 	/**
 	 * @brief set a resource file
-	 * @param fName
-	 * @return 
+	 * @param fName file name for the resource
+	 * @return the file for the resource
+	 * @see File
 	 */
 	@MethodInfo(name = "set resource file", valueName = "file")
 	@Override
@@ -52,5 +55,4 @@ public class NeuronalTopologyImporterPathProvider extends PathProvider implement
 		String fName) {
 		return super.setResourceFile(fName);
 	}
-
 }

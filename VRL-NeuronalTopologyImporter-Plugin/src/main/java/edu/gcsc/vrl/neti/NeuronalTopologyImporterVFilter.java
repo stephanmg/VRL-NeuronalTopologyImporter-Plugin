@@ -6,11 +6,10 @@ import eu.mihosoft.vrl.visual.VFilter;
 import javax.swing.tree.DefaultMutableTreeNode;
 
 /**
- * @brief hides some components
+ * @brief NeuronalTopologyImporter menu filter
  * @author stephanmg <stephan@syntaktischer-zucker.de>
  */
 public class NeuronalTopologyImporterVFilter implements VFilter {
-
 	/**
 	 * @brief default ctor
 	 */
@@ -37,17 +36,15 @@ public class NeuronalTopologyImporterVFilter implements VFilter {
 			return false;
 		}
 
-		Class<?> cls = (Class<?>) node.getUserObject();
-
 		/*
 		boolean ugClass = UGObjectUtil.isUGAPIClass(cls);
 		boolean wrapperClass = UGObjectUtil.isWrapperClass(cls);
 		boolean constClass = UGObjectUtil.isConstClass(cls);
 		boolean groupRoot = UGObjectUtil.isGroupRoot(cls);
 		boolean groupChild = UGObjectUtil.isGroupChild(cls);
-		w*/
-
-
+		*/
+		
+		Class<?> cls = (Class<?>) node.getUserObject();
 		return "NeuronalTopologyImporterProvider".equals(cls.getName());
 	}
 
