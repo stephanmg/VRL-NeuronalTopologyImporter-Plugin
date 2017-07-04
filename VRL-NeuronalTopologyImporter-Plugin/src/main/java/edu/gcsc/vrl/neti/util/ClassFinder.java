@@ -47,7 +47,7 @@ public class ClassFinder {
 	}
 
 	/**
-	 * @brief ecursive method used to find all classes in a given directory and
+	 * @brief recursive method used to find all classes in a given directory and
 	 * subdirs.
 	 *	 
 	 * @param directory The base directory
@@ -239,6 +239,6 @@ public class ClassFinder {
 		
 		/*System.err.println("test with jar!");
 		ClassFinder.getClassesFromJar(new File("/Users/stephan/Temp/console_apps/test27/.application/property-folder/plugins"));
-			*/
+		*/
 	}
 }

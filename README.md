@@ -1,7 +1,10 @@
 # VRL-NeuronalTopologyImporter-Plugin
 
-This projects provides importing routines for NGX, HOC and SWC file types to UGX.
-See Template #1 after installation.
+This VRL project provides importing respectively converting routines for 
+NGX (NeuGen XML), HOC (NEURON) and SWC (Neuromorpho) file types to UGX (ug4).
+
+There are two templates provided after installing this plugin.
+The templates are available via Menu -> New Project from Template.
 
 ## VersionEye 
 * [![Dependency Status](https://www.versioneye.com/user/projects/5581a17f386664002000024f/badge.svg?style=flat)](https://www.versioneye.com/user/projects/5581a17f386664002000024f)
@@ -28,6 +31,8 @@ Specify correct path in `build.properties`, e.g.,
     
     # vrl property folder location (plugin destination)
     vrldir=/Users/myusername/.vrl/0.4.2/default
+
+Note, this is not necessary, plugin can be copied manually to VRL home folder.
 
 ### 3. Build & Install
 
@@ -59,4 +64,4 @@ task to build and install the plugin.
 Finally, restart VRL-Studio
 
 #### Note
-For a NeuroBox release, use the given branch.
+NeuroBox releases are provided via feature branches, e.g. neurobox-v01ff.
